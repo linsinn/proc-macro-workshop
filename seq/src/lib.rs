@@ -1,14 +1,7 @@
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-#![allow(dead_code)]
-
-use proc_macro2::{Group, Ident, Literal, Span, TokenStream, TokenTree};
-use quote::{quote, ToTokens};
+use proc_macro2::{Group, Ident, Literal, TokenStream, TokenTree};
 use syn::{
     parse::{Parse, ParseStream},
-    parse_macro_input,
-    spanned::Spanned,
-    token, LitInt, Token,
+    parse_macro_input, LitInt, Token,
 };
 
 #[derive(Debug)]
