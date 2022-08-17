@@ -1,8 +1,21 @@
-error[E0277]: the trait bound `bitfield::checks::SevenMod8: bitfield::checks::TotalSizeIsMultipleOfEightBits` is not satisfied
+error[E0277]: the trait bound `bitfield::_TotalSize<31_usize>: TotalSizeIsMultipleOfEightBits` is not satisfied
   --> tests/04-multiple-of-8bits.rs:53:1
    |
 53 | #[bitfield]
-   | ^^^^^^^^^^^ the trait `bitfield::checks::TotalSizeIsMultipleOfEightBits` is not implemented for `bitfield::checks::SevenMod8`
+   | ^^^^^^^^^^^ the trait `TotalSizeIsMultipleOfEightBits` is not implemented for `bitfield::_TotalSize<31_usize>`
    |
-   = help: the trait `bitfield::checks::TotalSizeIsMultipleOfEightBits` is implemented for `bitfield::checks::ZeroMod8`
+   = help: the following other types implement trait `TotalSizeIsMultipleOfEightBits`:
+             bitfield::_TotalSize<16_usize>
+             bitfield::_TotalSize<24_usize>
+             bitfield::_TotalSize<32_usize>
+             bitfield::_TotalSize<40_usize>
+             bitfield::_TotalSize<48_usize>
+             bitfield::_TotalSize<56_usize>
+             bitfield::_TotalSize<64_usize>
+             bitfield::_TotalSize<8_usize>
+note: required by a bound in `bitfield::_CheckTotalSize`
+  --> src/lib.rs
+   |
+   | bitfield_impl::gen_mod_8_trait! {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `bitfield::_CheckTotalSize`
    = note: this error originates in the attribute macro `bitfield` (in Nightly builds, run with -Z macro-backtrace for more info)
