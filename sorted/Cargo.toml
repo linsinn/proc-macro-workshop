@@ -12,7 +12,6 @@ proc-macro = true
 name = "tests"
 path = "tests/progress.rs"
 
-
 [[test]]
 name = "my_test"
 path = "tests/my_test.rs"

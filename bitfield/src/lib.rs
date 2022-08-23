@@ -11,5 +11,45 @@
 // From the perspective of a user of this crate, they get all the necessary APIs
 // (macro, trait, struct) through the one bitfield crate.
 pub use bitfield_impl::bitfield;
+pub use bitfield_impl::BitfieldSpecifier;
+use std::marker::PhantomData;
+
+pub trait Specifier {
+    const BITS: usize;
+    type TheType;
+}
+
+pub trait TypeSpecifier {
+    type Fit;
+}
+
+bitfield_impl::gen_bit_enums! {}
+
+pub trait TotalSizeIsMultipleOfEightBits {}
+
+bitfield_impl::gen_mod_8_trait! {}
+
+impl Specifier for bool {
+    const BITS: usize = 1;
+    type TheType = bool;
+}
+
+pub trait DiscriminantInRange {}
+
+pub struct BoolType<const B: bool> {}
+
+impl DiscriminantInRange for BoolType<true> {}
+
+pub struct CheckIsDiscriminantInRange<T: DiscriminantInRange> {
+    pub _marker: PhantomData<T>,
+}
+
+pub trait UserBitEqTypeBit {}
+
+impl UserBitEqTypeBit for BoolType<true> {}
+
+pub struct CheckUserBitEqTypeBit<T: UserBitEqTypeBit> {
+    pub _marker: PhantomData<T>,
+}
 
 // TODO other things
