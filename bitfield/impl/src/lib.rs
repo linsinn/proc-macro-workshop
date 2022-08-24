@@ -55,22 +55,10 @@ impl BitField {
                             &format!("_Check{}UserBitEqTypeBit", &field.ident.clone().unwrap()),
                             field.ident.span(),
                         );
-                        let func_ident = Ident::new(
-                            &format!(
-                                "_Check{}UserBitEqTypeBitFunc",
-                                &field.ident.clone().unwrap()
-                            ),
-                            field.ident.span(),
-                        );
 
                         check_eq_bits.push(quote_spanned! {user_bit.span()=>
-                            #[allow(non_upper_case_globals, non_snake_case)]
-                            const fn #func_ident(_v: [(); #user_bit]) {}
-
                             #[allow(non_upper_case_globals)]
-                            const #ident: () = #func_ident([(); #type_bit]);
-
-                            // const #ident: CheckUserBitEqTypeBit::<BoolType::<{#s}>> = CheckUserBitEqTypeBit {_marker: std::marker::PhantomData};
+                            const #ident: [(); #user_bit] = [(); #type_bit];
                         });
                     };
                 } else {
